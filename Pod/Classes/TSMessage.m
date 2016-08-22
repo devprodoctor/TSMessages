@@ -276,6 +276,7 @@ __weak static UIViewController *_defaultViewController;
     };
     void(^completionBlock)(BOOL) = ^(BOOL finished) {
         currentView.messageIsFullyDisplayed = YES;
+        UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, currentView);
     };
     
     if (![TSMessage iOS7StyleEnabled]) {
@@ -371,6 +372,7 @@ __weak static UIViewController *_defaultViewController;
          if(animationFinished) {
              animationFinished();
          }
+         UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, nil);
      }];
 }
 

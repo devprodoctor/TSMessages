@@ -610,3 +610,54 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
 }
 
 @end
+
+@interface TSMessageView(Accessibility)
+
+@end
+
+@implementation TSMessageView(Accessibility)
+
+- (BOOL)isAccessibilityElement {
+    return YES;
+}
+
+-(UIAccessibilityTraits)accessibilityTraits {
+    return UIAccessibilityTraitButton | UIAccessibilityTraitStaticText;
+}
+
+-(NSString *)accessibilityLabel {
+    return [NSString stringWithFormat:@"%@: %@, %@", [self messageType], self.title ?: @"", self.subtitle ?: @""];
+}
+
+- (NSString*)messageType {
+    NSString *currentString = @"";
+    switch (notificationType)
+    {
+        case TSMessageNotificationTypeMessage:
+        {
+            currentString = @"Mensagem";
+            break;
+        }
+        case TSMessageNotificationTypeError:
+        {
+            currentString = @"Erro";
+            break;
+        }
+        case TSMessageNotificationTypeSuccess:
+        {
+            currentString = @"Sucesso";
+            break;
+        }
+        case TSMessageNotificationTypeWarning:
+        {
+            currentString = @"Alerta";
+            break;
+        }
+            
+        default:
+            break;
+    }
+    return currentString;
+}
+
+@end
